@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
-
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -21,21 +20,30 @@
     <!-- your app's js -->
     <script src="app/main.module.js"></script>
 
-  </head>
-  <body ng-app="starter" animation="slide-left-right-ios7">
-    <!-- 
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-      <ion-nav-back-button class="button-icon icon  ion-ios7-arrow-back">
-        Back
-      </ion-nav-back-button>
-    </ion-nav-bar>
-    <!-- 
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
-    <ion-nav-view></ion-nav-view>
-  </body>
+</head>
+<body ng-app="Chat">
+
+
+<ion-side-menus>
+    <ion-side-menu-content drag-content="false">
+        <ion-nav-bar class="bar-light">
+            <button class="button button-positive button-clear icon ion-navicon" menu-toggle="left"></button>
+        </ion-nav-bar>
+        <ion-nav-view animation="no-animation"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-positive">
+            <h1 class="title">Chat App</h1>
+        </ion-header-bar>
+        <ion-content>
+            <ul class="list">
+                <a class="item" ui-sref="my_chats" menu-close>My Chats</a>
+                <a class="item" ui-sref="create_chat" menu-close>Start a Chat</a>
+            </ul>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
+
+</body>
 </html>
