@@ -1,4 +1,4 @@
-var APP = angular.module('Chat', ['ionic'])
+var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
