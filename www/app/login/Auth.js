@@ -1,4 +1,6 @@
-APP.factory("Auth", function ($window, $firebaseAuth) {
-    var authRef = new $window.Firebase("https://scorching-fire-3170.firebaseio.com");
-    return $firebaseAuth(authRef);
+APP.factory("Auth", function ($window, $firebaseAuth, FIREBASE_URL) {
+    var authRef = new $window.Firebase(FIREBASE_URL);
+    var auth = $firebaseAuth(authRef)
+
+    return auth;
 });

@@ -1,5 +1,5 @@
 var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
-
+    .constant('FIREBASE_URL', 'https://scorching-fire-3170.firebaseio.com')
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('login', {
@@ -14,7 +14,8 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
             })
             .state('profile', {
                 url: "/profile",
-                template: "<ion-view><ion-content>Profile</ion-content></ion-view>",
+                templateUrl: "app/profile/profile.html",
+                controller: "profileController",
                 resolve: {
                     currentUser: function (Auth) {
                         return Auth.$requireAuth();
@@ -38,7 +39,7 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
                         return Auth.$requireAuth()
                     }
                 }
-            })
+            });
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/my-chats');
 
@@ -47,7 +48,7 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
         $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
             // We can catch the error thrown when the $requireAuth promise is rejected
             // and redirect the user back to the home page
-
+console.log(error)
             if (error === "AUTH_REQUIRED") {
                 $state.go("login")
             }

@@ -21,12 +21,15 @@
 
     <!-- your app's js -->
     <script src="app/main.module.js"></script>
+    <script src="app/appController.js"></script>
     <script src="app/login/loginController.js"></script>
     <script src="app/login/createAccountController.js"></script>
     <script src="app/login/Auth.js"></script>
+    <script src="app/profile/profileController.js"></script>
+    <script src="app/models/User.js"></script>
 
 </head>
-<body ng-app="StandardIonic">
+<body ng-app="StandardIonic" ng-controller="appController">
 <ion-side-menus>
     <ion-side-menu-content drag-content="false">
         <ion-nav-bar class="bar-light">
@@ -41,8 +44,10 @@
         </ion-header-bar>
         <ion-content>
             <ul class="list">
+                <a class="item" ui-sref="profile" menu-close>My Profile</a>
                 <a class="item" ui-sref="my_chats" menu-close>My Chats</a>
                 <a class="item" ui-sref="create_chat" menu-close>Start a Chat</a>
+                <a class="item" ng-click="logout()" menu-close>Log Out</a>
             </ul>
         </ion-content>
     </ion-side-menu>
