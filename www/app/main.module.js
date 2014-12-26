@@ -5,12 +5,30 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
             .state('login', {
                 url: "/login",
                 templateUrl: 'app/login/login.html',
-                controller: "loginController"
+                controller: "loginController",
+                resolve: {
+                    noUser: function (Auth, $q) {
+                        return Auth.$requireAuth().then(function(){
+                            return $q.reject("ALREADY_LOGGED_IN")
+                        }, function(){
+                            return
+                        });
+                    }
+                }
             })
             .state('create_account', {
                 url: "/create-account",
                 templateUrl: "app/login/create-account.html",
-                controller: "createAccountController"
+                controller: "createAccountController",
+                resolve: {
+                    noUser: function (Auth, $q) {
+                        return Auth.$requireAuth().then(function(){
+                            return $q.reject("ALREADY_LOGGED_IN")
+                        }, function(){
+                            return
+                        });
+                    }
+                }
             })
             .state('profile', {
                 url: "/profile",
@@ -48,9 +66,11 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
         $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
             // We can catch the error thrown when the $requireAuth promise is rejected
             // and redirect the user back to the home page
-console.log(error)
+
             if (error === "AUTH_REQUIRED") {
                 $state.go("login")
+            }else if(error === "ALREADY_LOGGED_IN"){
+                $state.go("profile")
             }
         });
     });

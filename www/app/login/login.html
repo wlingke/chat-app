@@ -2,16 +2,16 @@
     <ion-content>
         <div class="list">
             <label class="item item-input">
-                <span class="input-label">Username</span>
-                <input type="text">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="data.email">
             </label>
             <label class="item item-input">
                 <span class="input-label">Password</span>
-                <input type="password">
+                <input type="password" ng-model="data.password">
             </label>
         </div>
 
-        <button class="button button-positive button-block">Login</button>
+        <button class="button button-positive button-block" ng-click="login()">Login</button>
         <a ui-sref="create_account">Create an Account</a>
     </ion-content>
 </ion-view>
