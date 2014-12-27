@@ -1,3 +1,5 @@
 APP.controller('appController', function($scope, Auth){
-    $scope.logout = Auth.$unauth()
-})
+    $scope.logout = function(){
+        Auth.$unauth()
+    }
+});

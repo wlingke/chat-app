@@ -1,10 +1,7 @@
 APP.factory("User", function($FirebaseObject, $firebase, $window, FIREBASE_URL) {
     // create a new factory based on $FirebaseObject
     var UserFactory = $FirebaseObject.$extendFactory({
-        test: function(){
-            console.log('test')
-        }
-        // these methods exist on the prototype, so we can access the data using `this`
+
     });
     var userRef = new $window.Firebase(FIREBASE_URL + "/users");
     var userSync = $firebase(userRef);
