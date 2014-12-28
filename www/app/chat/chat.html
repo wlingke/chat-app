@@ -1,0 +1,23 @@
+<ion-view title="{{chatData.name}}">
+
+    <ion-content scroll="true" class="has-header" style="padding: 10px;">
+
+        <ol class="messages">
+            <li ng-class="{'userMsg': message.user_id === currentUser.uid}" ng-repeat="message in messages">
+                <div>
+                    <p ng-bind="message.message""></p>
+                </div>
+            </li>
+        </ol>
+    </ion-content>
+
+    <ion-footer-bar style="display:inline">
+        <form ng-submit="sendMessage()" class="message-form">
+            <label class="item-input-wrapper">
+                <input ng-model="newMessage" class="input-message" type="text" placeholder="Message">
+            </label>
+        </form>
+    </ion-footer-bar>
+
+
+</ion-view>

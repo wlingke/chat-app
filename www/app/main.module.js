@@ -42,7 +42,8 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
             })
             .state('my_chats', {
                 url: "/my-chats",
-                template: "<ion-view><ion-content>My Chats</ion-content></ion-view>",
+                templateUrl: "app/chat/my-chats.html",
+                controller: "myChatsController",
                 resolve: {
                     currentUser: function (Auth) {
                         return Auth.$requireAuth();
@@ -51,10 +52,32 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
             })
             .state('create_chat', {
                 url: "/create-chat",
-                template: "<ion-view><ion-content>Create Chat</ion-content></ion-view>",
+                templateUrl: "app/chat/create-chat.html",
+                controller: "createChatController",
                 resolve: {
                     currentUser: function (Auth, $q) {
                         return Auth.$requireAuth()
+                    }
+                }
+            })
+            .state('chat', {
+                url: "/chat/:chat_id",
+                templateUrl: 'app/chat/chat.html',
+                controller: 'chatController',
+                resolve: {
+                    currentUser: function (Auth, $q) {
+                        return Auth.$requireAuth()
+                    },
+                    currentChat: function($stateParams, Chat, $q){
+                        var chat = Chat.getChatData($stateParams.chat_id);
+                        return chat.$loaded()
+                            .then(function(){
+                                if(chat.id){
+                                    return chat
+                                }else{
+                                    return $q.reject("CHAT_NOT_FOUND")
+                                }
+                            })
                     }
                 }
             });
@@ -71,6 +94,8 @@ var APP = angular.module('StandardIonic', ['ionic', 'firebase'])
                 $state.go("login")
             }else if(error === "ALREADY_LOGGED_IN"){
                 $state.go("profile")
+            }else if(error === "CHAT_NOT_FOUND"){
+                $state.go('my_chats')
             }
         });
     });

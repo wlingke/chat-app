@@ -1,5 +1,6 @@
 <ion-view title="My Profile">
     <ion-content>
-        {{user}}
+        {{user}}<br><br>
+        <span ng-repeat="chat in chats">{{chat.$value}}</span>
     </ion-content>
 </ion-view>

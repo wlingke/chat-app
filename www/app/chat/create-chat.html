@@ -1,0 +1,16 @@
+<ion-view title="Create a Chat">
+    <ion-content>
+        <div class="list">
+            <label class="item item-input">
+                <span class="input-label">Chat Name</span>
+                <input type="text" ng-model="data.name">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Person's ID</span>
+                <input type="text" ng-model="data.target_person">
+            </label>
+        </div>
+
+        <button class="button button-positive button-block" ng-click="done()">Start Chat</button>
+    </ion-content>
+</ion-view>

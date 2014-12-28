@@ -2,7 +2,7 @@ APP.controller('loginController', function($scope, Auth, $state){
     $scope.data = {
         email: '',
         password: ''
-    }
+    };
 
     $scope.login = function(){
         Auth.$authWithPassword($scope.data)

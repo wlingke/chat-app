@@ -18,9 +18,14 @@ APP.factory("User", function($FirebaseObject, $firebase, $window, FIREBASE_URL) 
         return $firebase(ref, { objectFactory: UserFactory }).$asObject()
     };
 
+    var getUserChats = function(user_id){
+        return userRef.child(user_id).child('chats').orderByPriority();
+
+    }
 
     return {
         get: getUser,
-        set: setUser
+        set: setUser,
+        getChats: getUserChats
     }
 });

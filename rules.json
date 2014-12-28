@@ -1,0 +1,67 @@
+{
+    "rules": {
+        "users": {
+            "$user_id": {
+                //the user can always write to themselves
+                ".read": "auth.uid === $user_id",
+                ".write": "auth.uid === $user_id",
+
+                "email": {
+                    //".validate": regex for email
+                },
+                //Anyone can make a chat with you to but only you can see your own chats
+                "chats": {
+                    ".write": true,
+                    "$chat_id": {
+                        //Check that the chat's metadata exists
+                        ".validate": "root.child('chat-meta').child($chat_id).exists()"
+                    }
+                },
+                "$other": {
+                    ".validate": false
+                }
+            }
+        },
+        "chat-messages": {
+            "$chat_id":{
+                //You can read/write to chats where you are a participant
+                ".read": "root.child('chat-meta').child($chat_id).child('participants').child(auth.uid).val() === true",
+                ".write": "root.child('chat-meta').child($chat_id).child('participants').child(auth.uid).val() === true",
+                "$message_id":{
+                    //You cannot modify a message
+                    //Missing: required fields
+                    ".validate": "!data.exists()",
+                    "message": {
+                        ".validate": "newData.isString() && newData.val().length > 0"
+                    },
+                    "time": {
+                        ".validate": "newData.val() <= now"
+                    },
+                    //You can only write messages where you are the author
+                    "user_id": {
+                        ".validate": "newData.exists() && newData.val() === auth.uid"
+                    },
+                    "$other": {
+                        ".validate": false
+                    }
+                }
+            }
+        },
+        "chat-meta": {
+            "$chat_id": {
+                //You can only read to chats where you are a participant
+                ".read": "data.child('participants').child(auth.uid).val() === true",
+                //Generally no writing is allowed to any metadata
+                ".write": "!data.exists() && newData.exists()",
+
+                "name": {
+                    ".write": "data.parent().child('participants').child(auth.uid).val() === true",
+                    ".validate": "newData.isString()"
+                }
+            }
+        },
+        "$other":{
+            ".write": false
+        }
+    }
+}
